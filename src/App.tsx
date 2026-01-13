@@ -5,11 +5,14 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { AuthProvider } from './contexts/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import AdminRoute from './components/AdminRoute';
+import RoleRoute from './components/RoleRoute';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import DashboardPage from './pages/DashboardPage';
 import PatientProfilePage from './pages/PatientProfilePage';
+import PatientsListPage from './pages/patient/PatientsListPage';
+import PatientDetailPage from './pages/patient/PatientDetailPage';
 import './App.css';
 
 function App() {
@@ -29,6 +32,12 @@ function App() {
           {/* Admin Only Routes */}
           <Route element={<AdminRoute />}>
             <Route path="/dashboard" element={<DashboardPage />} />
+          </Route>
+
+          {/* Patient Management - Admin, Doctor, and Secretary */}
+          <Route element={<RoleRoute roles={['admin', 'doctor', 'secretary']} />}>
+            <Route path="/patients" element={<PatientsListPage />} />
+            <Route path="/patients/:id" element={<PatientDetailPage />} />
           </Route>
           
           {/* Catch all - redirect to home */}
