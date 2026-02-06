@@ -18,10 +18,17 @@ const LoginPage = () => {
   // Redirect based on user role after login
   useEffect(() => {
     if (user) {
-      if (user.role === 'admin') {
-        navigate('/dashboard');
-      } else {
-        navigate('/profile');
+      // Role-based navigation
+      switch (user.role) {
+        case 'admin':
+          navigate('/dashboard');
+          break;
+        case 'doctor':
+        case 'secretary':
+          navigate('/patients');
+          break;
+        default:
+          navigate('/profile');
       }
     }
   }, [user, navigate]);

@@ -1,11 +1,42 @@
 /**
  * Home Page
  */
-import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 
 const HomePage = () => {
-  const { isAuthenticated, user } = useAuth();
+  const { isAuthenticated, user, isLoading } = useAuth();
+  const navigate = useNavigate();
+
+  // Redirect authenticated users to their appropriate page
+  useEffect(() => {
+    if (isAuthenticated && user) {
+      switch (user.role) {
+        case 'admin':
+          navigate('/dashboard');
+          break;
+        case 'doctor':
+        case 'secretary':
+          navigate('/patients');
+          break;
+        default:
+          navigate('/profile');
+      }
+    }
+  }, [isAuthenticated, user, navigate]);
+
+  // Show loading while checking auth
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center min-h-screen bg-gray-50">
+        <div className="text-center">
+          <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mb-4"></div>
+          <p className="text-gray-600 font-medium">Loading...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary-500 to-secondary-500 px-4">

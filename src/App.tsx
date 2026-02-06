@@ -10,9 +10,10 @@ import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import DashboardPage from './pages/DashboardPage';
-import PatientProfilePage from './pages/PatientProfilePage';
+import PatientProfilePageNew from './pages/PatientProfilePageNew';
 import PatientsListPage from './pages/patient/PatientsListPage';
 import PatientDetailPage from './pages/patient/PatientDetailPage';
+import { AIAssistantPage } from './pages/AIAssistantPage';
 import './App.css';
 
 function App() {
@@ -20,14 +21,10 @@ function App() {
     <Router>
       <AuthProvider>
         <Routes>
+          {/* Public Routes */}
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
-          
-          {/* Protected Routes - All authenticated users */}
-          <Route element={<ProtectedRoute />}>
-            <Route path="/profile" element={<PatientProfilePage />} />
-          </Route>
           
           {/* Admin Only Routes */}
           <Route element={<AdminRoute />}>
@@ -38,6 +35,12 @@ function App() {
           <Route element={<RoleRoute roles={['admin', 'doctor', 'secretary']} />}>
             <Route path="/patients" element={<PatientsListPage />} />
             <Route path="/patients/:id" element={<PatientDetailPage />} />
+          </Route>
+
+          {/* Protected Routes - All authenticated users */}
+          <Route element={<ProtectedRoute />}>
+            <Route path="/profile" element={<PatientProfilePageNew />} />
+            <Route path="/ai-assistant" element={<AIAssistantPage />} />
           </Route>
           
           {/* Catch all - redirect to home */}

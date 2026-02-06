@@ -1,6 +1,6 @@
 /**
  * Patient Detail Page
- * Features: View patient details, edit patient, delete patient, deactivate patient
+ * Features: View patient details, edit patient, delete patient, deactivate patient, AI features
  */
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
@@ -16,6 +16,38 @@ import {
   type Patient,
   type PatientUpdateRequest
 } from '../../services/patients';
+import { PatientAIChat, AIRecommendations, DocumentAnalyzer } from '../../components/ai';
+import { AnalysisHistory } from '../../components/patient';
+import type { Patient as AIPatient } from '../../services/patient';
+
+// Helper function to convert Spring Boot Patient to AI Patient format
+const convertToAIPatient = (patient: Patient): AIPatient => {
+  // Convert gender enum: MALE -> M, FEMALE -> F, OTHER -> M (default)
+  const convertGender = (gender: string): 'M' | 'F' => {
+    if (gender === 'FEMALE') return 'F';
+    return 'M'; // Default to M for MALE and OTHER
+  };
+
+  return {
+    id: patient.id || '',
+    nom: patient.lastName || '',
+    prenom: patient.firstName || '',
+    dateNaissance: patient.dateOfBirth || '',
+    sexe: convertGender(patient.gender || 'MALE'),
+    numeroSecuriteSociale: '',
+    email: patient.email || '',
+    telephone: patient.phone || '',
+    adresse: `${patient.address || ''} ${patient.city || ''} ${patient.postalCode || ''}`.trim(),
+    groupeSanguin: patient.bloodGroup || '',
+    allergie: patient.allergies || '',
+    pathologiesPrincipales: patient.chronicDiseases || '',
+    antecedentsMedicaux: patient.notes || '',
+    medecinTraitant: '',
+    contactUrgence: patient.emergencyContactName && patient.emergencyContactPhone 
+      ? `${patient.emergencyContactName} - ${patient.emergencyContactPhone}` 
+      : '',
+  };
+};
 
 export default function PatientDetailPage() {
   const { id } = useParams<{ id: string }>();
@@ -28,6 +60,7 @@ export default function PatientDetailPage() {
   const [saving, setSaving] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [activeTab, setActiveTab] = useState<'info' | 'ai-chat' | 'ai-recommendations' | 'ai-documents' | 'analysis-history'>('info');
   
   const [form, setForm] = useState<PatientUpdateRequest>({});
 
@@ -222,6 +255,64 @@ export default function PatientDetailPage() {
           </div>
         )}
 
+        {/* Tabs Navigation */}
+        <div className="bg-white border-b border-gray-200 rounded-t-lg">
+          <div className="flex items-center space-x-1 px-6">
+            <button
+              onClick={() => setActiveTab('info')}
+              className={`px-4 py-3 text-sm font-medium border-b-2 transition-colors ${
+                activeTab === 'info'
+                  ? 'border-blue-600 text-blue-600'
+                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+              }`}
+            >
+              📋 Information
+            </button>
+            <button
+              onClick={() => setActiveTab('ai-chat')}
+              className={`px-4 py-3 text-sm font-medium border-b-2 transition-colors ${
+                activeTab === 'ai-chat'
+                  ? 'border-purple-600 text-purple-600'
+                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+              }`}
+            >
+              🤖 Chat IA
+            </button>
+            <button
+              onClick={() => setActiveTab('ai-recommendations')}
+              className={`px-4 py-3 text-sm font-medium border-b-2 transition-colors ${
+                activeTab === 'ai-recommendations'
+                  ? 'border-purple-600 text-purple-600'
+                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+              }`}
+            >
+              💡 Recommandations IA
+            </button>
+            <button
+              onClick={() => setActiveTab('ai-documents')}
+              className={`px-4 py-3 text-sm font-medium border-b-2 transition-colors ${
+                activeTab === 'ai-documents'
+                  ? 'border-purple-600 text-purple-600'
+                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+              }`}
+            >
+              📄 Analyse Documents
+            </button>
+            <button
+              onClick={() => setActiveTab('analysis-history')}
+              className={`px-4 py-3 text-sm font-medium border-b-2 transition-colors ${
+                activeTab === 'analysis-history'
+                  ? 'border-blue-600 text-blue-600'
+                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+              }`}
+            >
+              📊 Historique Analyses
+            </button>
+          </div>
+        </div>
+
+        {/* Tab Content */}
+        {activeTab === 'info' && (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Main Information */}
           <div className="lg:col-span-2 space-y-6">
@@ -230,8 +321,7 @@ export default function PatientDetailPage() {
               <div className="px-6 py-4 border-b bg-gray-50">
                 <h2 className="text-lg font-medium text-gray-900">Personal Information</h2>
               </div>
-              <div className="p-6 space-y-4">
-                {editing ? (
+              <div className="p-6 space-y-4">{editing ? (
                   <>
                     <div className="grid grid-cols-2 gap-4">
                       <div>
@@ -566,6 +656,41 @@ export default function PatientDetailPage() {
             </div>
           </div>
         </div>
+        )}
+
+        {/* AI Chat Tab */}
+        {activeTab === 'ai-chat' && patient && id && (
+          <div className="bg-white rounded-b-lg border border-gray-200 p-6">
+            <PatientAIChat 
+              patient={convertToAIPatient(patient)}
+              patientId={id}
+            />
+          </div>
+        )}
+
+        {/* AI Recommendations Tab */}
+        {activeTab === 'ai-recommendations' && patient && id && (
+          <div className="bg-white rounded-b-lg border border-gray-200 p-6">
+            <AIRecommendations 
+              patient={convertToAIPatient(patient)}
+              patientId={id}
+            />
+          </div>
+        )}
+
+        {/* AI Document Analysis Tab */}
+        {activeTab === 'ai-documents' && patient && id && (
+          <div className="bg-white rounded-b-lg border border-gray-200 p-6">
+            <DocumentAnalyzer patientId={id} />
+          </div>
+        )}
+
+        {/* Analysis History Tab */}
+        {activeTab === 'analysis-history' && patient && id && (
+          <div className="bg-white rounded-b-lg border border-gray-200 p-6">
+            <AnalysisHistory patientId={id} />
+          </div>
+        )}
       </div>
 
       {/* Delete Confirmation Modal */}

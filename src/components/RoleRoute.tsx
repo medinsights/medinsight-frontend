@@ -10,8 +10,24 @@ type RoleRouteProps = {
   redirectTo?: string;
 };
 
-export default function RoleRoute({ roles, redirectTo = '/profile' }: RoleRouteProps) {
+export default function RoleRoute({ roles, redirectTo }: RoleRouteProps) {
   const { isAuthenticated, isLoading, user } = useAuth();
+
+  // Smart redirect based on user role if not specified
+  const getDefaultRedirect = () => {
+    if (redirectTo) return redirectTo;
+    if (!user) return '/login';
+    
+    switch (user.role) {
+      case 'admin':
+        return '/dashboard';
+      case 'doctor':
+      case 'secretary':
+        return '/patients';
+      default:
+        return '/profile';
+    }
+  };
 
   if (isLoading) {
     return (
@@ -31,7 +47,7 @@ export default function RoleRoute({ roles, redirectTo = '/profile' }: RoleRouteP
 
   // Check if user's role is in the allowed roles
   if (!roles.includes(user.role as any)) {
-    return <Navigate to={redirectTo} replace />;
+    return <Navigate to={getDefaultRedirect()} replace />;
   }
 
   return <Outlet />;
