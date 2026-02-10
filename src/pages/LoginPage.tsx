@@ -15,21 +15,11 @@ const LoginPage = () => {
   const { login, user } = useAuth();
   const navigate = useNavigate();
 
-  // Redirect based on user role after login
+  // Redirect to patients list after successful login
   useEffect(() => {
     if (user) {
-      // Role-based navigation
-      switch (user.role) {
-        case 'admin':
-          navigate('/dashboard');
-          break;
-        case 'doctor':
-        case 'secretary':
-          navigate('/patients');
-          break;
-        default:
-          navigate('/profile');
-      }
+      // All authenticated users go to patients list (medical page)
+      navigate('/patients');
     }
   }, [user, navigate]);
 

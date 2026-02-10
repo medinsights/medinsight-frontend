@@ -1,0 +1,254 @@
+/* frontend/src/components/DocumentAnalyzer.css */
+
+.document-analyzer {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.upload-section {
+  background: white;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.upload-section h2 {
+  color: #2E5090;
+  margin-bottom: 10px;
+}
+
+.upload-section p {
+  color: #666;
+  margin-bottom: 30px;
+}
+
+.patient-info-banner {
+  background: #e8f5e9;
+  border-left: 4px solid #4CAF50;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 4px;
+  color: #2e7d32;
+  font-weight: 600;
+}
+
+.file-input-wrapper {
+  margin: 20px 0;
+}
+
+.file-label {
+  display: inline-block;
+  padding: 15px 30px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.file-label:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.file-input {
+  display: none;
+}
+
+.analyze-button {
+  padding: 15px 40px;
+  background: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  margin-top: 20px;
+}
+
+.analyze-button:hover:not(:disabled) {
+  background: #45a049;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.4);
+}
+
+.analyze-button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.error-message {
+  margin-top: 20px;
+  padding: 15px;
+  background: #ffebee;
+  border-left: 4px solid #f44336;
+  border-radius: 4px;
+  color: #c62828;
+}
+
+/* Résultats d'analyse */
+
+.analysis-results {
+  background: white;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.analysis-results h3 {
+  color: #2E5090;
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+.analysis-results h4 {
+  color: #4472C4;
+  margin-top: 25px;
+  margin-bottom: 15px;
+  font-size: 18px;
+}
+
+/* Informations patient */
+
+.patient-info {
+  background: #f5f7fa;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.patient-info p {
+  margin: 8px 0;
+  color: #333;
+}
+
+/* Alertes */
+
+.alerts-section {
+  margin: 25px 0;
+}
+
+.alert-card {
+  background: white;
+  border-left: 5px solid;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 15px 0;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  transition: transform 0.2s;
+}
+
+.alert-card:hover {
+  transform: translateX(5px);
+}
+
+.alert-card.severity-🟢 {
+  border-color: #4CAF50;
+  background: #f1f8f4;
+}
+
+.alert-card.severity-🟡 {
+  border-color: #FF9800;
+  background: #fff8e1;
+}
+
+.alert-card.severity-🔴 {
+  border-color: #f44336;
+  background: #ffebee;
+}
+
+.alert-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+  font-size: 18px;
+}
+
+.severity {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.alert-details p {
+  margin: 10px 0;
+  padding-left: 10px;
+  border-left: 3px solid #e0e0e0;
+}
+
+.alert-details strong {
+  color: #2E5090;
+}
+
+/* Recommandations */
+
+.recommendations {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 25px;
+  border-radius: 12px;
+  margin-top: 25px;
+}
+
+.recommendations h4 {
+  color: white;
+  margin-top: 0;
+}
+
+.recommendations p {
+  line-height: 1.6;
+  margin: 10px 0;
+}
+
+/* Analyse complète */
+
+.full-analysis {
+  background: #f5f7fa;
+  padding: 20px;
+  border-radius: 8px;
+  margin-top: 20px;
+}
+
+.full-analysis pre {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #333;
+}
+
+/* Responsive */
+
+@media (max-width: 768px) {
+  .document-analyzer {
+    padding: 10px;
+  }
+  
+  .upload-section,
+  .analysis-results {
+    padding: 20px;
+  }
+  
+  .file-label,
+  .analyze-button {
+    width: 100%;
+    padding: 12px;
+  }
+}
+.save-confirmation {
+  background: #e8f5e9;
+  border-left: 4px solid #4CAF50;
+  padding: 15px;
+  margin-top: 20px;
+  border-radius: 4px;
+  color: #2e7d32;
+  font-weight: 600;
+  text-align: center;
+}

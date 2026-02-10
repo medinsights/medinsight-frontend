@@ -1,0 +1,441 @@
+/* frontend/src/components/patient/PatientSynthese.css */
+
+.patient-synthese {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.synthese-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.synthese-column {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Card */
+.synthese-card {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.synthese-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+}
+
+.card-title {
+  margin: 0 0 20px 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: #1e293b;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid #f1f5f9;
+}
+
+/* Vitals */
+.vitals-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.vital-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: #f8fafc;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+}
+
+.vital-icon {
+  font-size: 28px;
+}
+
+.vital-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.vital-label {
+  font-size: 12px;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.vital-value {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1e293b;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.imc-category {
+  font-size: 11px;
+  color: #64748b;
+  font-weight: 500;
+}
+
+/* Pathologies */
+.pathologies-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.pathology-item {
+  display: flex;
+  gap: 12px;
+  padding: 12px;
+  background: #fff7ed;
+  border-left: 4px solid #fb923c;
+  border-radius: 8px;
+}
+
+.pathology-bullet {
+  color: #fb923c;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.pathology-item strong {
+  display: block;
+  color: #ea580c;
+  margin-bottom: 4px;
+}
+
+.pathology-date {
+  font-size: 13px;
+  color: #9a3412;
+}
+
+/* Treatments */
+.treatments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.treatment-item {
+  padding: 14px;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 10px;
+}
+
+.treatment-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.treatment-header strong {
+  color: #166534;
+  font-size: 15px;
+}
+
+.treatment-badge {
+  background: #22c55e;
+  color: white;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.treatment-details {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 13px;
+  color: #15803d;
+}
+
+/* Alerts */
+.alerts-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.alert-item {
+  display: flex;
+  gap: 16px;
+  padding: 16px;
+  border-radius: 12px;
+  border-left: 4px solid;
+}
+
+.alert-error {
+  background: #fef2f2;
+  border-left-color: #ef4444;
+}
+
+.alert-warning {
+  background: #fffbeb;
+  border-left-color: #f59e0b;
+}
+
+.alert-icon-large {
+  font-size: 32px;
+  line-height: 1;
+}
+
+.alert-content h3 {
+  margin: 0 0 8px 0;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.alert-error h3 {
+  color: #dc2626;
+}
+
+.alert-warning h3 {
+  color: #d97706;
+}
+
+.alert-content p {
+  margin: 0 0 12px 0;
+  font-size: 14px;
+  color: #64748b;
+}
+
+.alert-action {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: white;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.alert-error .alert-action {
+  color: #dc2626;
+  border: 1px solid #fecaca;
+}
+
+.alert-warning .alert-action {
+  color: #d97706;
+  border: 1px solid #fed7aa;
+}
+
+.no-alerts {
+  text-align: center;
+  padding: 40px 20px;
+  color: #64748b;
+}
+
+.success-icon {
+  font-size: 48px;
+  display: block;
+  margin-bottom: 12px;
+}
+
+/* Allergies */
+.allergy-warning {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: #fef2f2;
+  border: 2px solid #fecaca;
+  border-radius: 12px;
+  color: #dc2626;
+  font-size: 15px;
+}
+
+.allergy-icon {
+  font-size: 28px;
+}
+
+/* Contact */
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: #f8fafc;
+  border-radius: 10px;
+  font-size: 14px;
+  color: #475569;
+}
+
+.contact-icon {
+  font-size: 20px;
+}
+
+/* Empty states */
+.empty-text {
+  text-align: center;
+  color: #94a3b8;
+  font-size: 14px;
+  padding: 20px;
+}
+
+.empty-text.success {
+  color: #22c55e;
+  background: #f0fdf4;
+  border-radius: 10px;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .synthese-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .vitals-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .synthese-card {
+    padding: 16px;
+  }
+
+  .card-title {
+    font-size: 16px;
+  }
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* Section Header avec badge */
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.badge {
+  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* Traitements List */
+.traitements-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.traitement-item {
+  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+  border-left: 3px solid #22c55e;
+  padding: 12px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.traitement-item:hover {
+  transform: translateX(4px);
+  box-shadow: 0 2px 8px rgba(34, 197, 94, 0.2);
+}
+
+.traitement-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.traitement-nom {
+  font-weight: 600;
+  color: #16a34a;
+  font-size: 14px;
+}
+
+.traitement-dosage {
+  background: #22c55e;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.traitement-details {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-top: 4px;
+  font-size: 13px;
+}
+
+.detail-label {
+  color: #64748b;
+  font-weight: 500;
+}
+
+.detail-value {
+  color: #334155;
+}
+
+/* Info content */
+.info-content {
+  margin-top: 12px;
+}
+.card-header-with-action {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.btn-edit-constantes {
+  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(139, 92, 246, 0.3);
+}
+
+.btn-edit-constantes:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(139, 92, 246, 0.4);
+}
